@@ -6,6 +6,12 @@ from pydantic import BaseModel
 from config import Config
 
 
+class DeletePetModel(BaseModel):
+    code: int
+    type: str
+    message: str
+
+
 class Category(BaseModel):
     id: int
     name: str
@@ -47,3 +53,12 @@ def get_pet_by_id():
     response_text = response.text
     data = ModelItem.parse_raw(response_text).dict()
     return response.status_code, data
+
+def delete_pet_by_id(self):
+    response = requests.delete(
+        url=Config.URL + "/" + str(Config.DATA["id"]),
+    )
+    response_status = response.status_code
+    response_text = response.text
+    data = DeletePetModel.parse_raw(response_text).dict()
+    return response_status, response_text

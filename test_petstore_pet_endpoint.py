@@ -36,3 +36,8 @@ class TestPetstorePetEndPoint(unittest.TestCase):
         status, response = v.get_pet_by_id()
         self.assertEqual(status, 200)
         self.assertEqual(response["id"], 100200300)
+
+    def test_can_delete_pet(self):
+        """Deletion is the tearDown step, so if we're trying to delete pet twice, we'll get status code 404"""
+        status, response = v.delete_pet_by_id()
+        self.assertEqual(status, "200")
